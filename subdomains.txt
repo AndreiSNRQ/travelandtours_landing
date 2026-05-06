@@ -1,0 +1,22 @@
+landing: React Vite 
+    front: landing.jolitravel.jampzdev.com
+
+auth: Laravel
+    SUBDOMAIN: auth.jolitravel.local 
+    DB: u514031374_jolitravel
+
+human_resource_4: 
+    front: front.hr4armai.jampzdev.com      React
+    back: back.hr4armai.jampzdev.com        Laravel
+    DB: u514031374_jt_hr4armai
+
+logisticsI: Laravel
+    front: front.qrlog1.fleet.jampzdev.com  React
+    back: back.qrlog1.fleet.jampzdev.com    Laravel
+    DB: u514031374_jt_qrlog1
+
+logisticsII: Laravel
+    front: front.fleet.jampzdev.com         React
+    back: back.fleet.jampzdev.com           Laravel
+    DB: u514031374_jolitravel_flt
+

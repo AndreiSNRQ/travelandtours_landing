@@ -1,0 +1,21 @@
+// Department: Super Admin Core
+// Owner: lead-governance
+// DO NOT MODIFY WITHOUT APPROVAL
+/**CONTENTS
+ * HUMAN RESOURCE 1 = 
+ * HUMAN RESOURCE 2 =
+ * HUMAN RESOURCE 3 =
+ * HUMAN RESOURCE 4 =
+ * CORE TRANSACTION 1 = 
+ * CORE TRANSACTION 2 = 
+ * LOGISTICS 1 =
+ * LOGISTICS 2 = VEHICLE RESERVATION AND DISPATCH
+ * ADMINISTRATIVE = LEGAL, FACILITY RESERVATION, USER MANAGEMENT
+ * FINANCIAL = BUDGET STRUCTURE SUMMARY
+*/
+export default function SuperAdminDashboard() {
+    return (
+        <>
+        </>
+    );
+}

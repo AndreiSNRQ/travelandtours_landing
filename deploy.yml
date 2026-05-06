@@ -1,0 +1,114 @@
+name: 🚀 Auto Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # or your deploy branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 1. Install PHP dependencies
+      - name: Install PHP dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # 2. Build frontend inside frontend/
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install npm packages (frontend)
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # 3. Copy build output into Laravel public/
+      - name: Move frontend build into Laravel public/
+        run: |
+          rm -rf public/build
+          cp -r frontend/dist public/build
+
+      # 4. Upload files to Hostinger
+      - name: Upload files to Hostinger
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          source: |
+            app
+            bootstrap
+            config
+            database
+            public
+            resources
+            routes
+            artisan
+            composer.json
+            composer.lock
+          target: /home/u514031374/domains/jolitravel.jampzdev.com/public_html
+
+      # 5. Run Laravel optimizations on Hostinger
+      - name: Run Laravel optimizations
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          script: |
+            cd /home/u514031374/domains/jolitravel.jampzdev.com/public_html/auth
+
+            # ✅ Ensure APP_KEY exists (inject from secrets if missing)
+            if ! grep -q "APP_KEY=" .env; then
+              echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
+            fi
+            
+            composer install --no-dev --optimize-autoloader
+            composer require laravel/pail --dev
+            php artisan key:generate
+
+            php artisan db:seed
+
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan migrate --force
+
+            # ✅ Manual storage workaround (copy storage/app/public → public/storage)
+            mkdir -p public/storage
+            cp -r storage/app/public/* public/storage/
+
+            echo "✅ Deployment finished!"
+
+            cd /home/u514031374/domains/jolitravel.jampzdev.com/public_html/fleet_service
+
+            # ✅ Ensure APP_KEY exists (inject from secrets if missing)
+            if ! grep -q "APP_KEY=" .env; then
+              echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
+            fi
+            
+            composer install --no-dev --optimize-autoloader
+            composer require laravel/pail --dev
+            php artisan key:generate
+
+            php artisan db:seed
+
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan migrate --force
+
+            # ✅ Manual storage workaround (copy storage/app/public → public/storage)
+            mkdir -p public/storage
+            cp -r storage/app/public/* public/storage/
+
+            echo "✅ Deployment finished!"

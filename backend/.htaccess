@@ -1,0 +1,25 @@
+# Force correct MIME types for JS, CSS, etc.
+AddType application/javascript .js
+AddType application/javascript .mjs
+AddType text/css .css
+AddType application/json .json
+AddType font/woff2 .woff2
+AddType font/woff .woff
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine On
+
+    # If the request is already for /public, do nothing
+    RewriteCond %{REQUEST_URI} !^/public/
+
+    # If the requested file or folder exists, serve it
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Otherwise, redirect everything to /public
+    RewriteRule ^(.*)$ /public/$1 [L]
+
+    # Optional: redirect root URL to public/index.php
+    RewriteRule ^(/)?$ public/index.php [L]
+</IfModule>
