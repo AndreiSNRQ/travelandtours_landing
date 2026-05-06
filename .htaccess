@@ -13,6 +13,9 @@ AddType font/woff .woff
     # If the request is already for /public, do nothing
     RewriteCond %{REQUEST_URI} !^/public/
 
+    # If the request is for the root, redirect to index.html
+    RewriteRule ^ index.html [L]
+
     # If the requested file or folder exists, serve it
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
