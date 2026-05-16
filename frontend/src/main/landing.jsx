@@ -7,7 +7,6 @@ import Footer from "@/components/core1/footer"
 
 import { Button } from "@/components/ui/button"
 
-import wallpaperHeader from "@/assets/wallpaper-header.jpg"
 import featuredImg1 from "@/assets/Bohol.jpg"
 import featuredImg2 from "@/assets/Boracay.jpg"
 import featuredImg3 from "@/assets/Palawan.jpg"
@@ -25,8 +24,8 @@ export default function LandingPage() {
         <div className="relative overflow-hidden">
           {/* Background */}
           <img
-            src={wallpaperHeader}
-            alt="wallpaper"
+            src={}
+            alt="LOGO"
             className="absolute inset-0 w-full h-full object-cover -z-10 blur-[2px]"
           />
 
@@ -41,7 +40,7 @@ export default function LandingPage() {
                 </h1>
 
                 <p className="text-(--primary) lg:text-[50px] text-center font-bold leading-tight text-[40px]">
-                  JOLI Travel And Tours
+                  Company Title
                 </p>
 
                 <p className="my-4 text-center">
