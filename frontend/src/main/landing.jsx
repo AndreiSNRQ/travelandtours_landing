@@ -24,7 +24,7 @@ export default function LandingPage() {
         <div className="relative overflow-hidden">
           {/* Background */}
           <img
-            src={}
+            src=#
             alt="LOGO"
             className="absolute inset-0 w-full h-full object-cover -z-10 blur-[2px]"
           />
