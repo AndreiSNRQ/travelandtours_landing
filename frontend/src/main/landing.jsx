@@ -7,6 +7,7 @@ import Footer from "@/components/core1/footer"
 
 import { Button } from "@/components/ui/button"
 
+import wallpaperHeader from "@/assets/wallpaper-header.jpg"
 import featuredImg1 from "@/assets/Bohol.jpg"
 import featuredImg2 from "@/assets/Boracay.jpg"
 import featuredImg3 from "@/assets/Palawan.jpg"
@@ -24,7 +25,8 @@ export default function LandingPage() {
         <div className="relative overflow-hidden">
           {/* Background */}
           <img
-            src=#
+            src={wallpaperHeader}
+            alt="wallpaper"
             alt="LOGO"
             className="absolute inset-0 w-full h-full object-cover -z-10 blur-[2px]"
           />
